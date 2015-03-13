@@ -1,7 +1,9 @@
 # notel
 notel is a hotel for your notes on iOS.
 
-The features implemented in notel are of mutual benefit to users and developers. They help keep notel – and similar applications – fresh and interactive. They also create additional entry points into the application which will entice people to keep coming back.
+![](https://raw.githubusercontent.com/duliodenis/notel/master/art/notel-list-with-title.jpg)
+
+The features implemented in notel are of mutual benefit to users and developers. They help keep notel – and similar applications – fresh and interactive. They also create additional entry points into the application which will entice people to keep coming back. Notel uses CoreData, App Extension, and CloudKit.
 
 ### User Stories
 
