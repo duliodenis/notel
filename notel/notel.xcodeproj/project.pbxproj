@@ -16,6 +16,7 @@
 		6CE01E861AB35C0C00FB93A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E851AB35C0C00FB93A5 /* Images.xcassets */; };
 		6CE01E891AB35C0C00FB93A5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */; };
 		6CE01E951AB35C0D00FB93A5 /* notelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E941AB35C0D00FB93A5 /* notelTests.m */; };
+		6CE2EE511AB495C500AB6963 /* NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,8 @@
 		6CE01E8E1AB35C0C00FB93A5 /* notelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = notelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE01E931AB35C0D00FB93A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE01E941AB35C0D00FB93A5 /* notelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = notelTests.m; sourceTree = "<group>"; };
+		6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNoteViewController.h; sourceTree = "<group>"; };
+		6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNoteViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +92,8 @@
 				6CE01E821AB35C0C00FB93A5 /* Main.storyboard */,
 				6CE01E7C1AB35C0C00FB93A5 /* MasterViewController.h */,
 				6CE01E7D1AB35C0C00FB93A5 /* MasterViewController.m */,
+				6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */,
+				6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */,
 				6CE01E7F1AB35C0C00FB93A5 /* DetailViewController.h */,
 				6CE01E801AB35C0C00FB93A5 /* DetailViewController.m */,
 				6CE01E851AB35C0C00FB93A5 /* Images.xcassets */,
@@ -232,6 +237,7 @@
 				6CE01E781AB35C0C00FB93A5 /* AppDelegate.m in Sources */,
 				6CE01E751AB35C0C00FB93A5 /* main.m in Sources */,
 				6CE01E7B1AB35C0C00FB93A5 /* notel.xcdatamodeld in Sources */,
+				6CE2EE511AB495C500AB6963 /* NewNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +428,7 @@
 				6CE01E9A1AB35C0D00FB93A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6CE01E9B1AB35C0D00FB93A5 /* Build configuration list for PBXNativeTarget "notelTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +437,7 @@
 				6CE01E9D1AB35C0D00FB93A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
