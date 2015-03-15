@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) id detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (nonatomic) NSManagedObjectContext *context;
+@property (nonatomic) id detailItem;
+
+- (void)setContext:(NSManagedObjectContext *)context;
 
 @end
 

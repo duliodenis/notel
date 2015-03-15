@@ -8,8 +8,8 @@
 
 #import "DetailViewController.h"
 
-@interface DetailViewController ()
-
+@interface DetailViewController () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextView *noteBody;
 @end
 
 @implementation DetailViewController
@@ -28,19 +28,38 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [[self.detailItem valueForKey:@"body"] description];
+        self.noteBody.text = [[self.detailItem valueForKey:@"body"] description];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.noteBody.delegate = self;
     [self configureView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+#pragma mark - UITextView Delegate Methods
+
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
+    
+    [self.detailItem setValue:self.noteBody.text forKey:@"body"];
+    [self.detailItem setValue:[NSDate date] forKey:@"timeStamp"];
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![self.context save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    
+    return YES;
+}
+
+
+#pragma mark - Method to support Segue
+
+- (void)setContext:(NSManagedObjectContext *)context {
+    _context = context;
 }
 
 @end

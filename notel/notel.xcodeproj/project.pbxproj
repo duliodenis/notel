@@ -17,6 +17,8 @@
 		6CE01E891AB35C0C00FB93A5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */; };
 		6CE01E951AB35C0D00FB93A5 /* notelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E941AB35C0D00FB93A5 /* notelTests.m */; };
 		6CE2EE511AB495C500AB6963 /* NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */; };
+		6CE2EE551AB4C2BD00AB6963 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */; };
+		6CE2EE561AB4C2BD00AB6963 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		6CE01E941AB35C0D00FB93A5 /* notelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = notelTests.m; sourceTree = "<group>"; };
 		6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNoteViewController.h; sourceTree = "<group>"; };
 		6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNoteViewController.m; sourceTree = "<group>"; };
+		6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CE2EE551AB4C2BD00AB6963 /* Crashlytics.framework in Frameworks */,
+				6CE2EE561AB4C2BD00AB6963 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +113,8 @@
 		6CE01E721AB35C0C00FB93A5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */,
+				6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */,
 				6CE01E761AB35C0C00FB93A5 /* AppDelegate.h */,
 				6CE01E771AB35C0C00FB93A5 /* AppDelegate.m */,
 				6CE01E731AB35C0C00FB93A5 /* Info.plist */,
@@ -142,6 +150,7 @@
 				6CE01E6B1AB35C0C00FB93A5 /* Sources */,
 				6CE01E6C1AB35C0C00FB93A5 /* Frameworks */,
 				6CE01E6D1AB35C0C00FB93A5 /* Resources */,
+				6CE2EE521AB4C26900AB6963 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -226,6 +235,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6CE2EE521AB4C26900AB6963 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run d3799712ccbbeb53c74ea0e5d477fbba0e9df26e 7f8144b638c1e140df18af3ba968ff98684c27dc9361717f80c52752b0f16390";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6CE01E6B1AB35C0C00FB93A5 /* Sources */ = {
@@ -359,6 +384,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/notel",
+				);
 				INFOPLIST_FILE = notel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -369,6 +398,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/notel",
+				);
 				INFOPLIST_FILE = notel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
