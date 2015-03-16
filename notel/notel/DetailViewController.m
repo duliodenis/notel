@@ -9,6 +9,7 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *noteTitle;
 @property (weak, nonatomic) IBOutlet UITextView *noteBody;
 @end
 
@@ -28,6 +29,7 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
+        self.noteTitle.text = [self.detailItem valueForKey:@"title"];
         self.noteBody.text = [[self.detailItem valueForKey:@"body"] description];
     }
 }
@@ -43,6 +45,7 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView{
     
+    [self.detailItem setValue:self.noteTitle.text forKey:@"title"];
     [self.detailItem setValue:self.noteBody.text forKey:@"body"];
     [self.detailItem setValue:[NSDate date] forKey:@"timeStamp"];
     

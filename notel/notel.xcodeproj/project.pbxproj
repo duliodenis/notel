@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CDAAB141AB5F5A100089243 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */; };
 		6CE01E751AB35C0C00FB93A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E741AB35C0C00FB93A5 /* main.m */; };
 		6CE01E781AB35C0C00FB93A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E771AB35C0C00FB93A5 /* AppDelegate.m */; };
 		6CE01E7B1AB35C0C00FB93A5 /* notel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */; };
@@ -32,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewCell.h; sourceTree = "<group>"; };
+		6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		6CE01E6F1AB35C0C00FB93A5 /* notel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = notel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE01E731AB35C0C00FB93A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE01E741AB35C0C00FB93A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */,
 				6CE01E7F1AB35C0C00FB93A5 /* DetailViewController.h */,
 				6CE01E801AB35C0C00FB93A5 /* DetailViewController.m */,
+				6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */,
+				6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */,
 				6CE01E851AB35C0C00FB93A5 /* Images.xcassets */,
 				6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */,
 				6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */,
@@ -259,6 +264,7 @@
 			files = (
 				6CE01E811AB35C0C00FB93A5 /* DetailViewController.m in Sources */,
 				6CE01E7E1AB35C0C00FB93A5 /* MasterViewController.m in Sources */,
+				6CDAAB141AB5F5A100089243 /* NotesTableViewCell.m in Sources */,
 				6CE01E781AB35C0C00FB93A5 /* AppDelegate.m in Sources */,
 				6CE01E751AB35C0C00FB93A5 /* main.m in Sources */,
 				6CE01E7B1AB35C0C00FB93A5 /* notel.xcdatamodeld in Sources */,

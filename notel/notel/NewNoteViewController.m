@@ -10,7 +10,9 @@
 #import <CoreData/CoreData.h>
 
 @interface NewNoteViewController () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *noteTitle;
 @property (weak, nonatomic) IBOutlet UITextView *noteBody;
+@property (weak, nonatomic) IBOutlet UILabel *placeholderLabel;
 @end
 
 @implementation NewNoteViewController
@@ -31,6 +33,7 @@
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+    [newManagedObject setValue:self.noteTitle.text forKey:@"title"];
     [newManagedObject setValue:self.noteBody.text forKey:@"body"];
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"]; // puts in the creation date for sorting by date
     
@@ -43,5 +46,10 @@
     return YES;
 }
 
+// hide the placeholder when the user begins
+- (void)textViewDidChange:(UITextView *)textView{
+    if      (textView.text.length!=0) [UIView animateWithDuration:0.2 animations:^{ self.placeholderLabel.alpha = 0; }];
+    else if (textView.text.length==0) [UIView animateWithDuration:0.2 animations:^{ self.placeholderLabel.alpha = 1; }];
+}
 
 @end
