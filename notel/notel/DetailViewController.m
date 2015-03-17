@@ -65,4 +65,20 @@
     _context = context;
 }
 
+
+#pragma mark - Note Sharing
+
+- (IBAction)share:(id)sender {
+    BOOL shareable = NO;
+    
+    NSMutableArray *itemsToShare = [NSMutableArray array];
+    if (self.noteTitle.text.length > 0) { [itemsToShare addObject:self.noteTitle.text]; shareable=YES; }
+    if (self.noteBody.text.length > 0)  { [itemsToShare addObject:self.noteBody.text]; shareable=YES; }
+    
+    if (shareable) {
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
+        [self presentViewController:activityVC animated:YES completion:nil];
+    }
+}
+
 @end

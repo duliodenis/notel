@@ -114,7 +114,13 @@
                             <constraint firstItem="a0L-h9-sNL" firstAttribute="top" secondItem="qRh-8w-QNP" secondAttribute="bottom" constant="27" id="mR6-Q2-7aY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Note" id="cra-N8-TIN"/>
+                    <navigationItem key="navigationItem" title="Note" id="cra-N8-TIN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="eq0-Cc-OOU">
+                            <connections>
+                                <action selector="share:" destination="Ah7-4n-0Wa" id="tmL-vb-IfU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="noteBody" destination="qRh-8w-QNP" id="Ksv-37-jpy"/>
                         <outlet property="noteTitle" destination="zDY-HU-gpR" id="FDk-8o-T1U"/>

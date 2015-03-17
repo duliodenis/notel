@@ -66,7 +66,12 @@
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"notel.sqlite"];
+    
+    // NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"notel.sqlite"];
+    // Need to write Database to group container for Share Extension to be able to access
+    NSURL *storeURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.notelContainer"];
+    storeURL = [storeURL URLByAppendingPathComponent:@"notel.sqlite"];
+    
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
