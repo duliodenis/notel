@@ -11,6 +11,7 @@
 #import "MasterViewController.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import "CoreDataStack.h"
 
 @interface AppDelegate ()
 
@@ -21,9 +22,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
+    //UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    //MasterViewController *controller = (MasterViewController *)navigationController.topViewController;
+    //CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    //controller.managedObjectContext = coreDataStack.managedObjectContext;
+    // controller.managedObjectContext = self.managedObjectContext;
     [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
@@ -32,10 +35,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+    // Refactor this functionality back.
+    // [self saveContext];
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    [coreDataStack saveContext];
 }
 
-
+/*
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -52,7 +58,12 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
+    
+    // Need to write Database Schema to group container for Share Extension to be able to access
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"notel" withExtension:@"momd"];
+    //NSURL *storeURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.notelContainer"];
+    //NSURL *modelURL = [storeURL URLByAppendingPathComponent:@"notel.momd"];
+    
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
@@ -121,5 +132,6 @@
         }
     }
 }
+*/
 
 @end

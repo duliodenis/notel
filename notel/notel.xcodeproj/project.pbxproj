@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C5263521AC202A00078B19D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5263511AC202A00078B19D /* Note.m */; };
+		6C5263531AC202A00078B19D /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5263511AC202A00078B19D /* Note.m */; };
 		6CDAAB141AB5F5A100089243 /* NotesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */; };
 		6CDAE47D1AB748DC007E94CB /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDAE47C1AB748DC007E94CB /* ShareViewController.m */; };
 		6CDAE47F1AB748DC007E94CB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CDAE47E1AB748DC007E94CB /* MainInterface.storyboard */; };
 		6CDAE4821AB748DC007E94CB /* notel share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6CDAE4771AB748DC007E94CB /* notel share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		6CDAE48C1AB764B3007E94CB /* notel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 6CDAE48B1AB764B3007E94CB /* notel.xcdatamodel */; };
+		6CDC2EDB1AC0BFE40059B3AC /* notel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */; };
+		6CDC2EDC1AC0C65E0059B3AC /* notel.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */; };
+		6CDC2EDF1AC0CECA0059B3AC /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */; };
+		6CDC2EE01AC0CECA0059B3AC /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */; };
 		6CE01E751AB35C0C00FB93A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E741AB35C0C00FB93A5 /* main.m */; };
 		6CE01E781AB35C0C00FB93A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E771AB35C0C00FB93A5 /* AppDelegate.m */; };
 		6CE01E7B1AB35C0C00FB93A5 /* notel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */; };
@@ -58,6 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6C5263501AC202A00078B19D /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		6C5263511AC202A00078B19D /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotesTableViewCell.h; sourceTree = "<group>"; };
 		6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotesTableViewCell.m; sourceTree = "<group>"; };
 		6CDAE4771AB748DC007E94CB /* notel share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "notel share.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +74,8 @@
 		6CDAE47E1AB748DC007E94CB /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		6CDAE4871AB74BFA007E94CB /* notel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = notel.entitlements; sourceTree = "<group>"; };
 		6CDAE4881AB74C27007E94CB /* notel share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "notel share.entitlements"; sourceTree = "<group>"; };
-		6CDAE48B1AB764B3007E94CB /* notel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = notel.xcdatamodel; path = notel/notel.xcdatamodeld/notel.xcdatamodel; sourceTree = SOURCE_ROOT; };
+		6CDC2EDD1AC0CECA0059B3AC /* CoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
+		6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
 		6CE01E6F1AB35C0C00FB93A5 /* notel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = notel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE01E731AB35C0C00FB93A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE01E741AB35C0C00FB93A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -121,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				6CDAE4881AB74C27007E94CB /* notel share.entitlements */,
-				6CDAE48B1AB764B3007E94CB /* notel.xcdatamodel */,
 				6CDAE47B1AB748DC007E94CB /* ShareViewController.h */,
 				6CDAE47C1AB748DC007E94CB /* ShareViewController.m */,
 				6CDAE47E1AB748DC007E94CB /* MainInterface.storyboard */,
@@ -171,7 +178,11 @@
 				6CE01E801AB35C0C00FB93A5 /* DetailViewController.m */,
 				6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */,
 				6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */,
+				6CDC2EDD1AC0CECA0059B3AC /* CoreDataStack.h */,
+				6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */,
 				6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */,
+				6C5263501AC202A00078B19D /* Note.h */,
+				6C5263511AC202A00078B19D /* Note.m */,
 				6CE01E851AB35C0C00FB93A5 /* Images.xcassets */,
 				6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */,
 				6CE01E721AB35C0C00FB93A5 /* Supporting Files */,
@@ -314,8 +325,8 @@
 			projectRoot = "";
 			targets = (
 				6CE01E6E1AB35C0C00FB93A5 /* notel */,
-				6CE01E8D1AB35C0C00FB93A5 /* notelTests */,
 				6CDAE4761AB748DC007E94CB /* notel share */,
+				6CE01E8D1AB35C0C00FB93A5 /* notelTests */,
 			);
 		};
 /* End PBXProject section */
@@ -325,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CDC2EDC1AC0C65E0059B3AC /* notel.xcdatamodeld in Resources */,
 				6CDAE47F1AB748DC007E94CB /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,8 +381,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CDC2EDB1AC0BFE40059B3AC /* notel.xcdatamodeld in Sources */,
 				6CDAE47D1AB748DC007E94CB /* ShareViewController.m in Sources */,
-				6CDAE48C1AB764B3007E94CB /* notel.xcdatamodel in Sources */,
+				6CDC2EE01AC0CECA0059B3AC /* CoreDataStack.m in Sources */,
+				6C5263531AC202A00078B19D /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,9 +392,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C5263521AC202A00078B19D /* Note.m in Sources */,
 				6CE01E811AB35C0C00FB93A5 /* DetailViewController.m in Sources */,
 				6CE01E7E1AB35C0C00FB93A5 /* MasterViewController.m in Sources */,
 				6CDAAB141AB5F5A100089243 /* NotesTableViewCell.m in Sources */,
+				6CDC2EDF1AC0CECA0059B3AC /* CoreDataStack.m in Sources */,
 				6CE01E781AB35C0C00FB93A5 /* AppDelegate.m in Sources */,
 				6CE01E751AB35C0C00FB93A5 /* main.m in Sources */,
 				6CE01E7B1AB35C0C00FB93A5 /* notel.xcdatamodeld in Sources */,
@@ -619,6 +635,7 @@
 				6CDAE4841AB748DC007E94CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6CE01E6A1AB35C0C00FB93A5 /* Build configuration list for PBXProject "notel" */ = {
 			isa = XCConfigurationList;

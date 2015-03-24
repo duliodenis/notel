@@ -11,7 +11,7 @@
 
 @interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+// @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

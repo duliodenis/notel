@@ -8,6 +8,7 @@
 
 #import "NewNoteViewController.h"
 #import <CoreData/CoreData.h>
+#import "CoreDataStack.h"
 
 @interface NewNoteViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *noteTitle;
@@ -27,9 +28,11 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView{
     
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    
+    //NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:coreDataStack.managedObjectContext];
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -39,9 +42,13 @@
     
     // Save the context.
     NSError *error = nil;
-    if (![context save:&error]) {
+    //[coreDataStack saveContext];
+    
+    if (![coreDataStack.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
+
+    [coreDataStack refreshFetchedResultsController];
 
     return YES;
 }

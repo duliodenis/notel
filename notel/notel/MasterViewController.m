@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "NewNoteViewController.h"
 #import "NotesTableViewCell.h"
+#import "CoreDataStack.h"
 
 @interface MasterViewController ()
 
@@ -34,8 +35,9 @@
 
 - (void)insertNewNote:(id)sender {
     NewNoteViewController *destinationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"NewNoteViewController"];
-    destinationVC.fetchedResultsController = self.fetchedResultsController;
-    destinationVC.managedObjectContext = self.managedObjectContext;
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    destinationVC.fetchedResultsController = cds.fetchedResultsController;
+    destinationVC.managedObjectContext = cds.managedObjectContext;
     [self.navigationController pushViewController:destinationVC animated:YES];
 }
 
@@ -45,8 +47,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        CoreDataStack *cds = [CoreDataStack defaultStack];
+        NSManagedObject *object = [[cds fetchedResultsController] objectAtIndexPath:indexPath];
+        NSManagedObjectContext *context = [cds.fetchedResultsController managedObjectContext];
         [[segue destinationViewController] setContext:context];
         [[segue destinationViewController] setDetailItem:object];
     }
@@ -56,12 +59,14 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[self.fetchedResultsController sections] count];
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    return [[cds.fetchedResultsController sections] count];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [cds.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -81,8 +86,9 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        CoreDataStack *cds = [CoreDataStack defaultStack];
+        NSManagedObjectContext *context = [cds.fetchedResultsController managedObjectContext];
+        [context deleteObject:[cds.fetchedResultsController objectAtIndexPath:indexPath]];
             
         NSError *error = nil;
         if (![context save:&error]) {
@@ -96,14 +102,15 @@
 
 
 - (void)configureCell:(NotesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    NSManagedObject *object = [cds.fetchedResultsController objectAtIndexPath:indexPath];
     cell.title.text = [[object valueForKey:@"title"] description];
     cell.body.text = [[object valueForKey:@"body"] description];
 }
 
 
 #pragma mark - Fetched results controller
-
+/* refactor into the CDS
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (_fetchedResultsController != nil) {
@@ -112,7 +119,10 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+    
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:cds.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
@@ -126,7 +136,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:cds.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -140,6 +150,37 @@
     
     return _fetchedResultsController;
 }    
+*/
+
+- (NSFetchRequest *)noteListFetchRequest {
+    //CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:coreDataStack.managedObjectContext];
+    //NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    //[fetchRequest setEntity:entity];
+    
+    /* this doesn't seem to work
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timeStamp" ascending:NO]];
+    return fetchRequest;
+     */
+    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:coreDataStack.managedObjectContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    fetchRequest.sortDescriptors = sortDescriptors;
+    return fetchRequest;
+//    NSError *error = nil;
+//    if (![self.fetchedResultsController performFetch:&error]) {
+//        // Replace this implementation with code to handle the error appropriately.
+//        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//    
+//    return _fetchedResultsController;
+}
 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -195,7 +236,12 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView endUpdates];
+    [self.tableView reloadData];
+//    [self.tableView endUpdates];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
 }
 
 /*
