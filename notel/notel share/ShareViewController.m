@@ -78,7 +78,7 @@
     }
     
     [self.extensionContext completeRequestReturningItems:@[] completionHandler:nil];
-    
+    [coreDataStack deleteCache];
     NSLog(@"ALL GOOD!");
 }
 

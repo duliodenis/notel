@@ -148,4 +148,8 @@
     _fetchedResultsController = nil;
 }
 
+- (void)deleteCache {
+    [NSFetchedResultsController deleteCacheWithName:@"Master"];
+}
+
 @end

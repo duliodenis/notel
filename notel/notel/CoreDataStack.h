@@ -21,5 +21,6 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void)refreshFetchedResultsController;
+- (void)deleteCache;
 
 @end
