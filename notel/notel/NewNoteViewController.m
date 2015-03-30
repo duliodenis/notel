@@ -28,11 +28,11 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView{
     
-    CoreDataStack *coreDataStack = [CoreDataStack defaultStack];
+    CoreDataStack *cds = [CoreDataStack defaultStack];
     
-    //NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:coreDataStack.managedObjectContext];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                                      inManagedObjectContext:cds.managedObjectContext];
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
@@ -44,11 +44,11 @@
     NSError *error = nil;
     //[coreDataStack saveContext];
     
-    if (![coreDataStack.managedObjectContext save:&error]) {
+    if (![cds.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 
-    [coreDataStack refreshFetchedResultsController];
+    [cds refreshFetchedResultsController];
 
     return YES;
 }
