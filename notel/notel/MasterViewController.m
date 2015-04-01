@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 Dulio Denis. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "NewNoteViewController.h"
 #import "NotesTableViewCell.h"
 #import "CoreDataStack.h"
 
-@interface MasterViewController ()
-
+@interface MasterViewController () <NSFetchedResultsControllerDelegate>
 @end
 
 @implementation MasterViewController
@@ -26,18 +26,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewNote:)];
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                               target:self
+                                                                               action:@selector(insertNewNote:)];
     self.navigationItem.rightBarButtonItem = addButton;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    cds.delegate = self;
+    [self.tableView reloadData];
 }
 
 
 - (void)insertNewNote:(id)sender {
     NewNoteViewController *destinationVC = [self.storyboard instantiateViewControllerWithIdentifier:@"NewNoteViewController"];
-    CoreDataStack *cds = [CoreDataStack defaultStack];
-    destinationVC.fetchedResultsController = cds.fetchedResultsController;
-    destinationVC.managedObjectContext = cds.managedObjectContext;
     [self.navigationController pushViewController:destinationVC animated:YES];
 }
 
@@ -49,8 +55,6 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         CoreDataStack *cds = [CoreDataStack defaultStack];
         NSManagedObject *object = [[cds fetchedResultsController] objectAtIndexPath:indexPath];
-        NSManagedObjectContext *context = [cds.fetchedResultsController managedObjectContext];
-        [[segue destinationViewController] setContext:context];
         [[segue destinationViewController] setDetailItem:object];
     }
 }
@@ -78,25 +82,18 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
+           editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
 }
 
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+                                            forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         CoreDataStack *cds = [CoreDataStack defaultStack];
-        NSManagedObjectContext *context = [cds.fetchedResultsController managedObjectContext];
-        [context deleteObject:[cds.fetchedResultsController objectAtIndexPath:indexPath]];
-            
-        NSError *error = nil;
-        if (![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+        [[cds managedObjectContext] deleteObject:[cds.fetchedResultsController objectAtIndexPath:indexPath]];
+        [cds saveContext];
     }
 }
 
@@ -109,22 +106,16 @@
 }
 
 
-#pragma mark - Fetched results controller
-
-- (NSFetchRequest *)noteListFetchRequest {
-    CoreDataStack *cds = [CoreDataStack defaultStack];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:cds.managedObjectContext];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    [fetchRequest setEntity:entity];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptor];
-    fetchRequest.sortDescriptors = sortDescriptors;
-    return fetchRequest;
-}
+#pragma mark - Fetched Results Controller Delegate Methods
 
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
 }
 
 
@@ -140,44 +131,38 @@
             break;
             
         default:
-            return;
+            break;
     }
 }
 
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
+      newIndexPath:(NSIndexPath *)newIndexPath {
     UITableView *tableView = self.tableView;
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:(NotesTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            // [self configureCell:(NotesTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeMove:
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
+            
+        default:
+            break;
     }
-}
-
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView reloadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
 }
 
 @end

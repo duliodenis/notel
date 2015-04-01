@@ -26,14 +26,11 @@
 
 #pragma mark - UITextView Delegate Methods
 
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView{
-    
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
     CoreDataStack *cds = [CoreDataStack defaultStack];
-    
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    NSEntityDescription *entity = [[cds.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                                       inManagedObjectContext:cds.managedObjectContext];
-    
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     [newManagedObject setValue:self.noteTitle.text forKey:@"title"];
@@ -42,19 +39,17 @@
     
     // Save the context.
     NSError *error = nil;
-    //[coreDataStack saveContext];
     
     if (![cds.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 
     [cds refreshFetchedResultsController];
-
     return YES;
 }
 
 // hide the placeholder when the user begins
-- (void)textViewDidChange:(UITextView *)textView{
+- (void)textViewDidChange:(UITextView *)textView {
     if      (textView.text.length!=0) [UIView animateWithDuration:0.2 animations:^{ self.placeholderLabel.alpha = 0; }];
     else if (textView.text.length==0) [UIView animateWithDuration:0.2 animations:^{ self.placeholderLabel.alpha = 1; }];
 }

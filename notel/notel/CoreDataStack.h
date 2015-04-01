@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface CoreDataStack : NSObject <NSFetchedResultsControllerDelegate>
+@interface CoreDataStack : NSObject <NSFetchedResultsControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (readonly, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic) id delegate;
 
 + (instancetype)defaultStack;
 

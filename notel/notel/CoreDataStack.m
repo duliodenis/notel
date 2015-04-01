@@ -97,7 +97,7 @@
             // Replace this implementation with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            // abort();
         }
     }
 }
@@ -108,6 +108,8 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
+    
+    [self deleteCache];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
@@ -129,7 +131,7 @@
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:cds.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
+    aFetchedResultsController.delegate = self.delegate;
     self.fetchedResultsController = aFetchedResultsController;
     
     NSError *error = nil;
@@ -137,11 +139,11 @@
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        // abort();
     }
     
     return _fetchedResultsController;
-}    
+}
 
 - (void)refreshFetchedResultsController {
     _fetchedResultsController = nil;
@@ -149,6 +151,25 @@
 
 - (void)deleteCache {
     [NSFetchedResultsController deleteCacheWithName:@"Master"];
+}
+
+
+#pragma mark - View Controller message forwarding
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    [self.delegate controller:controller didChangeObject:anObject atIndexPath:indexPath forChangeType:type newIndexPath:newIndexPath];
+}
+
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.delegate controllerWillChangeContent:controller];
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.delegate controllerDidChangeContent:controller];
 }
 
 @end

@@ -11,7 +11,4 @@
 
 @interface NewNoteViewController : UIViewController
 
-@property (nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic) NSManagedObjectContext *managedObjectContext;
-
 @end

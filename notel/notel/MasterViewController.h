@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
-@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
-
-@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@interface MasterViewController : UITableViewController 
 
 @end
 
