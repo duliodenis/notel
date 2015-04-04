@@ -35,10 +35,22 @@
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:cds.managedObjectContext];
     
+    // Verify that we have a valid NSExtensionItem
+    NSExtensionItem *imageItem = [self.extensionContext.inputItems firstObject];
+    if(!imageItem){
+        return;
+    }
+    
+    // Verify that we have a valid NSItemProvider
+    NSItemProvider *imageItemProvider = [[imageItem attachments] firstObject];
+    if(!imageItemProvider){
+        return;
+    }
+    
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:@"Test title" forKey:@"title"];
-    [newManagedObject setValue:@"Test body" forKey:@"body"];
+    [newManagedObject setValue:@"Shared Content" forKey:@"title"];
+    [newManagedObject setValue:self.contentText forKey:@"body"];
     [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"]; // puts in the creation date for sorting by date
     
     // Save the context.

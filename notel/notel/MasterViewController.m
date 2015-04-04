@@ -35,9 +35,24 @@
 }
 
 
+- (void)mergeHelper:(NSNotification*)saveNotification
+{
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    // Fault in all updated objects
+    NSArray* updates = [[saveNotification.userInfo objectForKey:@"updated"] allObjects];
+    for (NSInteger i = [updates count]-1; i >= 0; i--)
+    {
+        [[cds.managedObjectContext objectWithID:[[updates objectAtIndex:i] objectID]] willAccessValueForKey:nil];
+    }
+    
+    // Merge
+    [cds.managedObjectContext mergeChangesFromContextDidSaveNotification:saveNotification];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     CoreDataStack *cds = [CoreDataStack defaultStack];
     cds.delegate = self;
+    cds.fetchedResultsController = nil;
     [self.tableView reloadData];
 }
 
