@@ -11,13 +11,18 @@
 #import "DetailViewController.h"
 #import "NewNoteViewController.h"
 #import "NotesTableViewCell.h"
+#import "Note.h"
 #import "CoreDataStack.h"
 
-@interface MasterViewController () <NSFetchedResultsControllerDelegate>
+@interface MasterViewController () <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@property (nonatomic) UISearchController *searchController;
+@property (nonatomic) NSArray *filteredList;
 @end
 
 @implementation MasterViewController
 
+
+#pragma mark - View Lifecycle Methods
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,11 +32,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Navigation Bar Button Items
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                target:self
                                                                                action:@selector(insertNewNote:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    // Search Controller
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
+    
+    // Add the SearchBar to the Table View Header & Allow to cover controller's view
+    [self.searchController.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    
+    // Then set the contentOffset property to hide the header row for a user pull down reveal
+    [self.tableView setContentOffset:CGPointMake(0,44) animated:YES];
 }
 
 
@@ -40,8 +60,7 @@
     CoreDataStack *cds = [CoreDataStack defaultStack];
     // Fault in all updated objects
     NSArray* updates = [[saveNotification.userInfo objectForKey:@"updated"] allObjects];
-    for (NSInteger i = [updates count]-1; i >= 0; i--)
-    {
+    for (NSInteger i = [updates count]-1; i >= 0; i--) {
         [[cds.managedObjectContext objectWithID:[[updates objectAtIndex:i] objectID]] willAccessValueForKey:nil];
     }
     
@@ -75,15 +94,21 @@
 }
 
 
-#pragma mark - Table View
+#pragma mark - Table View Delegate Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.searchController.active) {
+        return 1;
+    }
     CoreDataStack *cds = [CoreDataStack defaultStack];
     return [[cds.fetchedResultsController sections] count];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.searchController.active) {
+        return [self.filteredList count];
+    }
     CoreDataStack *cds = [CoreDataStack defaultStack];
     id <NSFetchedResultsSectionInfo> sectionInfo = [cds.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
@@ -92,7 +117,18 @@
 
 - (NotesTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NotesTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    
+    Note *note = nil;
+    
+    if (self.searchController.active) {
+        note = [self.filteredList objectAtIndex:indexPath.row];
+    } else {
+        CoreDataStack *cds = [CoreDataStack defaultStack];
+        note = [cds.fetchedResultsController objectAtIndexPath:indexPath];
+    }
+    
+    cell.title.text = note.title;
+    cell.body.text = note.body;
     return cell;
 }
 
@@ -113,16 +149,7 @@
 }
 
 
-- (void)configureCell:(NotesTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    CoreDataStack *cds = [CoreDataStack defaultStack];
-    NSManagedObject *object = [cds.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.title.text = [[object valueForKey:@"title"] description];
-    cell.body.text = [[object valueForKey:@"body"] description];
-}
-
-
 #pragma mark - Fetched Results Controller Delegate Methods
-
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
@@ -166,7 +193,6 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            // [self configureCell:(NotesTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
@@ -177,6 +203,43 @@
             
         default:
             break;
+    }
+}
+
+
+#pragma mark - UISearchBar Delegate Method
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    [self updateSearchResultsForSearchController:self.searchController];
+}
+
+
+#pragma mark - UISearchResultsUpdating Delegate Methods
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchString = searchController.searchBar.text;
+    [self searchForText:searchString];
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Search Support Methods
+
+- (void)searchForText:(NSString *)searchText {
+    CoreDataStack *cds = [CoreDataStack defaultStack];
+    if (cds.managedObjectContext) {
+        if (searchText.length == 0) { // Show All if No Search - initial condition
+            self.filteredList = [cds.fetchedResultsController fetchedObjects];
+        } else {
+            NSString *predicateFormat = @"%K BEGINSWITH[cd] %@";
+            NSString *searchAttribute = @"title";
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat, searchAttribute, searchText];
+            [cds.searchFetchRequest setPredicate:predicate];
+            
+            NSError *error = nil;
+            self.filteredList = [cds.managedObjectContext executeFetchRequest:cds.searchFetchRequest error:&error];
+        }
     }
 }
 

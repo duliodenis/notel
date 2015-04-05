@@ -145,10 +145,69 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6CDBE4081AD0915200306FF9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CDC2EDD1AC0CECA0059B3AC /* CoreDataStack.h */,
+				6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */,
+				6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */,
+				6C5263501AC202A00078B19D /* Note.h */,
+				6C5263511AC202A00078B19D /* Note.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6CDBE4091AD0916D00306FF9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6CE01E7C1AB35C0C00FB93A5 /* MasterViewController.h */,
+				6CE01E7D1AB35C0C00FB93A5 /* MasterViewController.m */,
+				6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */,
+				6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */,
+				6CE01E7F1AB35C0C00FB93A5 /* DetailViewController.h */,
+				6CE01E801AB35C0C00FB93A5 /* DetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6CDBE40A1AD0919E00306FF9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6CE01E821AB35C0C00FB93A5 /* Main.storyboard */,
+				6CE01E851AB35C0C00FB93A5 /* Images.xcassets */,
+				6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */,
+				6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */,
+				6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6CDBE40B1AD092FA00306FF9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6CDAE4871AB74BFA007E94CB /* notel.entitlements */,
+				6CE01E761AB35C0C00FB93A5 /* AppDelegate.h */,
+				6CE01E771AB35C0C00FB93A5 /* AppDelegate.m */,
+				6CE01E731AB35C0C00FB93A5 /* Info.plist */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		6CDBE40C1AD0931400306FF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */,
+				6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */,
+			);
+			name = Frameworks;
+			path = notel;
+			sourceTree = "<group>";
+		};
 		6CE01E661AB35C0C00FB93A5 = {
 			isa = PBXGroup;
 			children = (
 				6CE01E711AB35C0C00FB93A5 /* notel */,
+				6CDBE40C1AD0931400306FF9 /* Frameworks */,
 				6CE01E911AB35C0C00FB93A5 /* notelTests */,
 				6CDAE4781AB748DC007E94CB /* notel share */,
 				6CE01E701AB35C0C00FB93A5 /* Products */,
@@ -168,23 +227,10 @@
 		6CE01E711AB35C0C00FB93A5 /* notel */ = {
 			isa = PBXGroup;
 			children = (
-				6CDAE4871AB74BFA007E94CB /* notel.entitlements */,
-				6CE01E821AB35C0C00FB93A5 /* Main.storyboard */,
-				6CE01E7C1AB35C0C00FB93A5 /* MasterViewController.h */,
-				6CE01E7D1AB35C0C00FB93A5 /* MasterViewController.m */,
-				6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */,
-				6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */,
-				6CE01E7F1AB35C0C00FB93A5 /* DetailViewController.h */,
-				6CE01E801AB35C0C00FB93A5 /* DetailViewController.m */,
-				6CDAAB121AB5F5A100089243 /* NotesTableViewCell.h */,
-				6CDAAB131AB5F5A100089243 /* NotesTableViewCell.m */,
-				6CDC2EDD1AC0CECA0059B3AC /* CoreDataStack.h */,
-				6CDC2EDE1AC0CECA0059B3AC /* CoreDataStack.m */,
-				6CE01E791AB35C0C00FB93A5 /* notel.xcdatamodeld */,
-				6C5263501AC202A00078B19D /* Note.h */,
-				6C5263511AC202A00078B19D /* Note.m */,
-				6CE01E851AB35C0C00FB93A5 /* Images.xcassets */,
-				6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */,
+				6CDBE40B1AD092FA00306FF9 /* Application */,
+				6CDBE40A1AD0919E00306FF9 /* Views */,
+				6CDBE4091AD0916D00306FF9 /* Controllers */,
+				6CDBE4081AD0915200306FF9 /* Model */,
 				6CE01E721AB35C0C00FB93A5 /* Supporting Files */,
 			);
 			path = notel;
@@ -193,11 +239,6 @@
 		6CE01E721AB35C0C00FB93A5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */,
-				6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */,
-				6CE01E761AB35C0C00FB93A5 /* AppDelegate.h */,
-				6CE01E771AB35C0C00FB93A5 /* AppDelegate.m */,
-				6CE01E731AB35C0C00FB93A5 /* Info.plist */,
 				6CE01E741AB35C0C00FB93A5 /* main.m */,
 			);
 			name = "Supporting Files";

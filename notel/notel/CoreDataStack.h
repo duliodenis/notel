@@ -15,6 +15,7 @@
 @property (readonly, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic) NSFetchRequest *searchFetchRequest;
 @property (nonatomic) id delegate;
 
 + (instancetype)defaultStack;

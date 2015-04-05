@@ -112,10 +112,8 @@
     [self deleteCache];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
     // Edit the entity name as appropriate.
-    
-    // CoreDataStack *cds = [CoreDataStack defaultStack];
-    
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
@@ -170,6 +168,27 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.delegate controllerDidChangeContent:controller];
+}
+
+
+#pragma mark - Search Support Fetch Request
+
+- (NSFetchRequest *)searchFetchRequest
+{
+    if (_searchFetchRequest != nil)
+    {
+        return _searchFetchRequest;
+    }
+    
+    _searchFetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+    [_searchFetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    [_searchFetchRequest setSortDescriptors:sortDescriptors];
+    
+    return _searchFetchRequest;
 }
 
 @end
