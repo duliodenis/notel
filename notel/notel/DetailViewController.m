@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "CoreDataStack.h"
 
 @interface DetailViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *noteTitle;
@@ -50,19 +51,13 @@
     [self.detailItem setValue:[NSDate date] forKey:@"timeStamp"];
     
     // Save the context.
+    CoreDataStack *cds = [CoreDataStack defaultStack];
     NSError *error = nil;
-    if (![self.context save:&error]) {
+    if (![cds.managedObjectContext save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
     
     return YES;
-}
-
-
-#pragma mark - Method to support Segue
-
-- (void)setContext:(NSManagedObjectContext *)context {
-    _context = context;
 }
 
 

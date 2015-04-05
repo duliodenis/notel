@@ -7,14 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
 
 @interface DetailViewController : UIViewController
 
-@property (nonatomic) NSManagedObjectContext *context;
 @property (nonatomic) id detailItem;
-
-- (void)setContext:(NSManagedObjectContext *)context;
 
 @end
 
