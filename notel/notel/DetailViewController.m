@@ -39,6 +39,14 @@
     [super viewDidLoad];
     self.noteBody.delegate = self;
     [self configureView];
+    
+    // In order to detect actionable data create a tap gesture recognizer
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(tappedTextView:)];
+    [self.noteBody addGestureRecognizer:tapRecognizer];
+    // and make the note body textView non editable at first for link detection
+    self.noteBody.editable = NO;
+    self.noteBody.dataDetectorTypes = UIDataDetectorTypeAll;
 }
 
 
@@ -73,6 +81,29 @@
     if (shareable) {
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:itemsToShare applicationActivities:nil];
         [self presentViewController:activityVC animated:YES completion:nil];
+    }
+}
+
+
+#pragma mark - Actionable Data Detection Support
+
+- (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    UITextView *textView = (UITextView *)tapGesture.view;
+    CGPoint tapLocation = [tapGesture locationInView:textView];
+    UITextPosition *textPosition = [textView closestPositionToPoint:tapLocation];
+    NSDictionary *attributes = [textView textStylingAtPosition:textPosition inDirection:UITextStorageDirectionForward];
+    
+    NSURL *url = attributes[NSLinkAttributeName];
+    
+    if (url) {
+        [[UIApplication sharedApplication] openURL:url];
+    } else {
+        textView.editable = YES;
+        [textView becomeFirstResponder];
     }
 }
 
