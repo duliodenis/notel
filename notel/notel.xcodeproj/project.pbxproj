@@ -26,6 +26,7 @@
 		6CE01E861AB35C0C00FB93A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E851AB35C0C00FB93A5 /* Images.xcassets */; };
 		6CE01E891AB35C0C00FB93A5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CE01E871AB35C0C00FB93A5 /* LaunchScreen.xib */; };
 		6CE01E951AB35C0D00FB93A5 /* notelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE01E941AB35C0D00FB93A5 /* notelTests.m */; };
+		6CE1FF871AD875AE00C8C3B2 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE1FF861AD875AE00C8C3B2 /* CloudKit.framework */; };
 		6CE2EE511AB495C500AB6963 /* NewNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */; };
 		6CE2EE551AB4C2BD00AB6963 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */; };
 		6CE2EE561AB4C2BD00AB6963 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */; };
@@ -92,6 +93,7 @@
 		6CE01E8E1AB35C0C00FB93A5 /* notelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = notelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CE01E931AB35C0D00FB93A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6CE01E941AB35C0D00FB93A5 /* notelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = notelTests.m; sourceTree = "<group>"; };
+		6CE1FF861AD875AE00C8C3B2 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		6CE2EE4F1AB495C500AB6963 /* NewNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNoteViewController.h; sourceTree = "<group>"; };
 		6CE2EE501AB495C500AB6963 /* NewNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNoteViewController.m; sourceTree = "<group>"; };
 		6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CE1FF871AD875AE00C8C3B2 /* CloudKit.framework in Frameworks */,
 				6CE2EE551AB4C2BD00AB6963 /* Crashlytics.framework in Frameworks */,
 				6CE2EE561AB4C2BD00AB6963 /* Fabric.framework in Frameworks */,
 			);
@@ -196,6 +199,7 @@
 		6CDBE40C1AD0931400306FF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6CE1FF861AD875AE00C8C3B2 /* CloudKit.framework */,
 				6CE2EE531AB4C2BD00AB6963 /* Crashlytics.framework */,
 				6CE2EE541AB4C2BD00AB6963 /* Fabric.framework */,
 			);
@@ -342,6 +346,9 @@
 						DevelopmentTeam = FVTGESA2J4;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};

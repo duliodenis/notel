@@ -9,6 +9,7 @@
 #import "NewNoteViewController.h"
 #import <CoreData/CoreData.h>
 #import "CoreDataStack.h"
+#import <CloudKit/CloudKit.h>
 
 @interface NewNoteViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *noteTitle;
@@ -44,6 +45,21 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
     }
 
+    // Save to iCloud
+    NSLog(@"Saving to iCloud");
+    CKDatabase *privateDatabase = [[CKContainer defaultContainer] privateCloudDatabase];
+    CKRecordID *noteID = [[CKRecordID alloc] initWithRecordName:@"MyNote"];
+    CKRecord *note = [[CKRecord alloc] initWithRecordType:@"Note" recordID:noteID];
+    [note setValue:self.noteTitle.text forKey:@"title"];
+    [note setValue:self.noteBody.text forKey:@"body"];
+    
+    [privateDatabase saveRecord:note completionHandler:^(CKRecord *savedNote, NSError *error) {
+        if (error) {
+            NSLog(@"Error Saving to iCloud: %@", error.userInfo);
+        }
+    }];
+
+    
     [cds refreshFetchedResultsController];
     return YES;
 }
